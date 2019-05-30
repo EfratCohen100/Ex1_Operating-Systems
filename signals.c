@@ -1,19 +1,18 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdio.h>
+#include<unistd.h>
+#include<sys/types.h>
+#include<string.h>
+#include<wait.h>
+#include<signal.h>
+#include<sys/wait.h>
 
-// C program to illustrate 
-// pipe system call in C 
-// shared by Parent and Child 
-#include <stdio.h> 
-#include <stdlib.h>
-#include <unistd.h> 
-#include <sys/types.h>
-#include <sys/wait.h>
-
-#include <iostream>
-
-
-int main(){
+int main() 
+{ 
   
-  printf("test");
+  
+  printf("hi");
   
   exit(0);
   
