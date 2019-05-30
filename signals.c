@@ -7,11 +7,9 @@
 #include <unistd.h> 
 #include <sys/types.h>
 #include <sys/wait.h>
-#include "md5.h"
+
 #include <iostream>
-#include <mutex>
-#define  MSGSIZE 20 
-using namespace std;
+
 
 int main(){
   
