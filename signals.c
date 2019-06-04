@@ -1,3 +1,11 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
+C#, VB, Perl, Swift, Prolog, Javascript, Pascal, HTML, CSS, JS
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
 #include <stdio.h>
 #include<signal.h>
 #include<stdlib.h>
@@ -16,13 +24,7 @@ int main()
     int pid;
     signal(SIGINT,Sigcatch);
     int MyChildren [5];
-    
-    //  if(fork()<0)
-    //     {
-    //         printf("Error!");
-    //         exit(1);
-    //     }
-        
+
     for(int i=0; i<5; i++)
     {
        // printf("MyChildren");
@@ -30,8 +32,7 @@ int main()
         {
           pause();// wait for signal
           sleep(2);
-          exit(0);
-          
+          exit(0);  
         }
         
         else 
@@ -62,7 +63,7 @@ int main()
         {
             
           kill(SIGTERM,MyChildren[i]);
-          printf("%d is dead\n",MyChildren[i]);
+          printf("Process %d is dead\n",MyChildren[i]);
         }
         
     
