@@ -1,4 +1,11 @@
+/******************************************************************************
 
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
+C#, VB, Perl, Swift, Prolog, Javascript, Pascal, HTML, CSS, JS
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
 #include <stdio.h>
 #include<signal.h>
 #include<stdlib.h>
@@ -7,7 +14,7 @@
 #include<sys/wait.h>
 
 
-void Sigcatch(int pid)
+void sigCathcher(int pid)
 {
     printf("PID %d caught one\n",getpid());
 }
@@ -15,7 +22,7 @@ void Sigcatch(int pid)
 int main()
 {
     int pid;
-    signal(SIGINT,Sigcatch);
+    signal(SIGINT,sigCathcher);
     int MyChildren [5];
 
     for(int i=0; i<5; i++)
@@ -37,7 +44,7 @@ int main()
     }
     for(int j=4; j>=0; j--)
     {
-        signal(SIGINT,Sigcatch);
+        signal(SIGINT,sigCathcher);
         sleep(1);
         if(j==4)
         {
