@@ -1,11 +1,4 @@
-/******************************************************************************
 
-Welcome to GDB Online.
-GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
-C#, VB, Perl, Swift, Prolog, Javascript, Pascal, HTML, CSS, JS
-Code, Compile, Run and Debug online from anywhere in world.
-
-*******************************************************************************/
 #include <stdio.h>
 #include<signal.h>
 #include<stdlib.h>
@@ -16,7 +9,7 @@ Code, Compile, Run and Debug online from anywhere in world.
 
 void Sigcatch(int pid)
 {
-    printf("PID %d Caught one\n",getpid());
+    printf("PID %d caught one\n",getpid());
 }
 
 int main()
