@@ -1,107 +1,73 @@
 
 #include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <fcntl.h>
 #include <sys/uio.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <signal.h>
 #include <sys/fcntl.h>
-#include<sys/wait.h> 
+#include <stdio.h>
+#include<signal.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<sys/types.h>
+#include<sys/wait.h>
 
-void sigCathcher(int sig);
+void sigCathcher(int pid)
+{
 
- int arrChilds[5];         // pids of the children
+    printf("PID %d caught one\n",getpid());
 
- int j;                   // index to arrChilds
+}
 
-  
 
 int main()
 
 {
+    int pid;
+    signal(SIGINT,sigCathcher);
+    int MyChildren [5];
 
-  int i;
+    for(int i=0; i<5; i++)
+    {
+      // printf("MyChildren");
+         if((pid=fork())==0)
+        {
+          pause();// wait for signal
+          sleep(2);
+          exit(0);  
+         }
+        else 
 
-  int zombie;
+        {
+            MyChildren[i]=pid;
+            printf("PID %d ready\n",pid); 
+        }
+    }
 
-  int status;
+    for(int j=4; j>=0; j--)
+    {
 
-  int pid;
+        signal(SIGINT,sigCathcher);
+        sleep(1);
+        if(j==4)
+        {
+            kill(MyChildren[4],SIGINT);
+        } 
 
- signal(SIGINT,sigCathcher);  
+         if(j>=0 && j!=4){
+            kill(MyChildren[j],SIGINT);
 
- 
-
- for(i=0; i<5; i++)
-
- {
-
-    if((pid=fork()) ==  0)  	// new child
-
-    {                        
-
-      	printf("PID %d ready\n", getpid());
-
-      	j = i-1;
-
-      	pause(); 			// wait for signal
-
-     	exit(0);  			// end process (become a zombie)
+        }
 
     }
 
-    else            			//father updates the arrChilds array.
+        sleep(2);
+        for(int i=0; i<5;i++)
+        {
+          kill(MyChildren[i],SIGTERM);
+          printf("Process %d is dead\n",MyChildren[i]);
+        }
 
-      arrChilds[i] = pid;	  
+       
 
-}
-
-
-
-
-
-sleep(2);     	                	
-
-kill(arrChilds[4], SIGINT);     		// send signal to first child
-
-sleep(2);                              // wait for children to become zombies 
-
-
-
-
-
-for(i=0; i<5; i++)                      // collect zombies
-
-{
-
-    zombie = wait(&status); 		       
-
-    printf("process %d is dead\n", zombie);
-
-}
-
-  
-
-  exit(0);
-
-        
-
-}
-
-
-
-void sigCathcher(int sig)
-
-{
-
-  signal(SIGINT,sigCathcher);  // re-assign the signal catcher
-
-  printf("PID %d caught one\n", getpid());
-
-  if(j > -1)
-
-    	kill(arrChilds[j], SIGINT);  // send signal to next child in arrChilds
+    return 0;
 
 }
