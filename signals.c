@@ -59,7 +59,7 @@ int main()
         for(int i=0; i<5;i++)
         {
             
-          kill(MyChildren[i],SIGINT);
+          kill(MyChildren[i],SIGTERM);
           printf("Process %d is dead\n",MyChildren[i]);
         }
         
